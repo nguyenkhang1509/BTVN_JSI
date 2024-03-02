@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import {
-    getAuth, createUserWithEmailAndPassword
+    getAuth, createUserWithEmailAndPassword,
 } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js'
 
 const firebaseConfig = {
@@ -15,13 +15,22 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth();
 export const register = async (auth, email, password) => {
-
+    let isSuccess;
+    let infoMesseage;
     try {
-        alert("đăng ký thành công")
         const user = await createUserWithEmailAndPassword(auth, email, password);
+        isSuccess = true;
     } catch (error) {
-        alert(error.code);
+
+        isSuccess = false;
+        infoMesseage = error.code;
     }
-}
+    return {
+        isSuccess: isSuccess,
+        infoMessage: infoMesseage,
+
+    }
+};
+
 
 
